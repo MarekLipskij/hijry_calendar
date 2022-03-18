@@ -18,11 +18,11 @@
 ## :hammer: How it works 
 `hijri_vertical_calendar` is a very minimalistic framework that automatically loads months based on scoll behavior. It provides many useful callbacks to implement your own calendar interactions and builders to customize the calendar as much as you want. Check the example for several implementations like date range selection and paginated data visualisation.
 
-`PagedVerticalCalendar` has no required parameters and can be dropped in anywhere providing it has a fixed height.
+`HijriVerticalCalendar` has no required parameters and can be dropped in anywhere providing it has a fixed height.
 
 ```dart
 Scaffold(
-  body: PagedVerticalCalendar(),
+  body: HijriVerticalCalendar(),
 );
 ```
 ## :loudspeaker: Callbacks
@@ -30,7 +30,7 @@ Scaffold(
 Several callback are provided to facilitate easy implementation of any calendar interactions
 
 ```dart
-PagedVerticalCalendar(
+HijriVerticalCalendar(
   invisibleMonthsThreshold: 1,
   onMonthLoaded: (year, month) {
     // on month widget load 
@@ -49,17 +49,17 @@ PagedVerticalCalendar(
 
 `onDayPressed` is a simple `onPressed` callback but also provides the `DateTime` of the day that has been pressed.
 
-finally when an `endDate` is provided to the `PagedVerticalCalendar`, the `onPaginationCompleted` callback can be used. This is a `VoidCallBack` that indicates when all the months have been loaded.
+finally when an `endDate` is provided to the `HijriVerticalCalendar`, the `onPaginationCompleted` callback can be used. This is a `VoidCallBack` that indicates when all the months have been loaded.
 
 
 
 
 ## :art: Customization
 
- `PagedVerticalCalendar` provides default calendar styling, but these can be fully customized. To do so, several builders are provided:
+ `HijriVerticalCalendar` provides default calendar styling, but these can be fully customized. To do so, several builders are provided:
 
 ```dart
-PagedVerticalCalendar(
+HijriVerticalCalendar(
   monthBuilder: (context, month, year) {
     // provide a month header widget
   },
