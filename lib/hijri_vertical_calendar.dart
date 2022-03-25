@@ -251,6 +251,7 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scrollable(
+      controller: widget.scrollController,
       viewportBuilder: (BuildContext context, ViewportOffset position) {
         return Viewport(
           offset: position,
