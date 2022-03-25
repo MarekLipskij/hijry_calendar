@@ -247,6 +247,7 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
       _pagingReplyDownController.error;
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {
