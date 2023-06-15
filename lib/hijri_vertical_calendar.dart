@@ -160,13 +160,11 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
   }
 
   void paginationStatusUp(PagingStatus state) {
-    if (state == PagingStatus.completed)
-      return widget.onPaginationCompleted?.call();
+    if (state == PagingStatus.completed) return widget.onPaginationCompleted?.call();
   }
 
   void paginationStatusDown(PagingStatus state) {
-    if (state == PagingStatus.completed)
-      return widget.onPaginationCompleted?.call();
+    if (state == PagingStatus.completed) return widget.onPaginationCompleted?.call();
   }
 
   /// fetch a new [Month] object based on the [pageKey] which is the Nth month
@@ -183,19 +181,13 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
     //         .dateTime;
 
     try {
-        var hijriDate = HijriCalendar();
-        hijriDate.hYear = initDate.hYear;
-        hijriDate.hMonth = initDate.hMonth;
-        hijriDate.hDay = 1;
-          final month = DateUtils.getMonth(
-          hijriDate,
-          
-          widget.startDate,
-          pageKey,
-          true,
-          widget.useHijri);
+      var hijriDate = HijriCalendar();
+      hijriDate.hYear = initDate.hYear;
+      hijriDate.hMonth = initDate.hMonth;
+      hijriDate.hDay = 1;
+      final month = DateUtils.getMonth(hijriDate, widget.startDate, pageKey, true, widget.useHijri);
 
-      WidgetsBinding.instance?.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
@@ -217,19 +209,13 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
   void _fetchDownPage(int pageKey) async {
     // print("FETCH DONW PAGE $initDate, ${widget.endDate}, $pageKey");
     try {
-       var hijriDate = HijriCalendar();
-        hijriDate.hYear = initDate.hYear;
-        hijriDate.hMonth = initDate.hMonth;
-        hijriDate.hDay = 1;
-      final month = DateUtils.getMonth(
-        hijriDate,
-        widget.endDate,
-        pageKey,
-        false,
-        widget.useHijri
-      );
+      var hijriDate = HijriCalendar();
+      hijriDate.hYear = initDate.hYear;
+      hijriDate.hMonth = initDate.hMonth;
+      hijriDate.hDay = 1;
+      final month = DateUtils.getMonth(hijriDate, widget.endDate, pageKey, false, widget.useHijri);
 
-      WidgetsBinding.instance?.addPostFrameCallback(
+      WidgetsBinding.instance!.addPostFrameCallback(
         (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
@@ -303,13 +289,7 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
 }
 
 class _MonthView extends StatelessWidget {
-  _MonthView({
-    required this.month,
-    this.monthBuilder,
-    this.dayBuilder,
-    this.onDayPressed,
-    required this.useHijri
-  });
+  _MonthView({required this.month, this.monthBuilder, this.dayBuilder, this.onDayPressed, required this.useHijri});
 
   final Month month;
   final bool useHijri;
@@ -323,11 +303,7 @@ class _MonthView extends StatelessWidget {
       children: <Widget>[
         /// display the default month header if none is provided
         monthBuilder?.call(context, month.month, month.year) ??
-            _DefaultMonthView(
-              month: month.month,
-              year: month.year,
-              useHijri: useHijri
-            ),
+            _DefaultMonthView(month: month.month, year: month.year, useHijri: useHijri),
         Table(
           children: month.weeks.map((Week week) {
             return _generateWeekRow(context, week);
@@ -355,11 +331,10 @@ class _MonthView extends StatelessWidget {
           var newDate = HijriCalendar();
           newDate.hYear = week.firstDay.hYear;
           newDate.hMonth = week.firstDay.hMonth;
-          newDate.hDay =  firstDay.hDay + (position - (firstDay.weekDay() - 1));
+          newDate.hDay = firstDay.hDay + (position - (firstDay.weekDay() - 1));
           // print("DAY $day, $newDate");
 
-          if ((position + 1) < week.firstDay.weekDay() ||
-              (position + 1) > week.lastDay.weekDay()) {
+          if ((position + 1) < week.firstDay.weekDay() || (position + 1) > week.lastDay.weekDay()) {
             return const SizedBox();
           } else {
             return AspectRatio(
@@ -367,7 +342,10 @@ class _MonthView extends StatelessWidget {
               child: InkWell(
                 onTap: onDayPressed == null ? null : () => onDayPressed!(newDate),
                 child: dayBuilder?.call(context, newDate) ??
-                    _DefaultDayView(date: newDate, useHijri: useHijri,),
+                    _DefaultDayView(
+                      date: newDate,
+                      useHijri: useHijri,
+                    ),
               ),
             );
           }
@@ -396,12 +374,13 @@ class _DefaultMonthView extends StatelessWidget {
         ),
       );
     }
+
     // String text = DateFormat('MMMM yyyy').format(DateTime(year, month));
     // var h_date = HijriCalendar.fromDate(DateTime(year, month));
     var weekDate = HijriCalendar();
-      weekDate.hYear = year;
-      weekDate.hMonth = month;
-      weekDate.hDay = 1;
+    weekDate.hYear = year;
+    weekDate.hMonth = month;
+    weekDate.hDay = 1;
     // if (useHijri) {
     String text = "${weekDate.getLongMonthName()} ${weekDate.hYear}";
     //   print(text);
@@ -453,16 +432,14 @@ class _DefaultDayView extends StatelessWidget {
 
     // }
     return Center(
-      child: Text(
-        text
-        // DateFormat('d').format(date),
-      ),
+      child: Text(text
+          // DateFormat('d').format(date),
+          ),
     );
   }
 }
 
-typedef MonthBuilder = Widget Function(
-    BuildContext context, int month, int year);
+typedef MonthBuilder = Widget Function(BuildContext context, int month, int year);
 typedef DayBuilder = Widget Function(BuildContext context, HijriCalendar date);
 
 typedef OnMonthLoaded = void Function(int year, int month);
