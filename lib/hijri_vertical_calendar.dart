@@ -187,7 +187,7 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
       hijriDate.hDay = 1;
       final month = DateUtils.getMonth(hijriDate, widget.startDate, pageKey, true, widget.useHijri);
 
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
@@ -215,7 +215,7 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
       hijriDate.hDay = 1;
       final month = DateUtils.getMonth(hijriDate, widget.endDate, pageKey, false, widget.useHijri);
 
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
@@ -233,7 +233,6 @@ class _HijriVerticalCalendarState extends State<HijriVerticalCalendar> {
       _pagingReplyDownController.error;
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
